@@ -1,0 +1,107 @@
+name: Build and Push Containers
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+  id-token: write
+  attestations: write
+
+# Secrets must be at workflow level for `if: env.X != ''` to work
+env:
+  QUAY_USERNAME: ${{ secrets.QUAY_USERNAME }}
+  QUAY_PASSWORD: ${{ secrets.QUAY_PASSWORD }}
+  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        containerfile: [android, chaotic]
+        include:
+          - containerfile: android
+            image_name: android-toolbox
+            tags: |
+              latest
+              android
+              ${{ github.sha }}
+              ${{ github.ref_name }}
+          - containerfile: chaotic
+            image_name: chaotic-toolbox
+            tags: |
+              chaotic
+              chaotic-${{ github.sha }}
+              chaotic-${{ github.ref_name }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+
+      - name: Build image
+        uses: redhat-actions/buildah-build@main
+        id: build
+        with:
+          image: pratyay360/${{ matrix.image_name }}
+          tags: ${{ matrix.tags }}
+          containerfiles: ./ContainerFiles/${{ matrix.containerfile }}
+          context: .
+
+      - name: Login to GHCR
+        uses: redhat-actions/podman-login@main
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+
+      - name: Push to GHCR
+        id: ghcr
+        uses: redhat-actions/push-to-registry@main
+        with:
+          registry: ghcr.io
+          image: pratyay360/${{ matrix.image_name }}
+          tags: ${{ steps.build.outputs.tags }}
+
+      - name: Login to Quay
+        if: env.QUAY_USERNAME != ''
+        uses: redhat-actions/podman-login@main
+        with:
+          registry: quay.io
+          username: ${{ secrets.QUAY_USERNAME }}
+          password: ${{ secrets.QUAY_PASSWORD }}
+
+      - name: Push to Quay
+        if: env.QUAY_USERNAME != ''
+        uses: redhat-actions/push-to-registry@main
+        with:
+          registry: quay.io
+          image: pratyay360/${{ matrix.image_name }}
+          tags: ${{ steps.build.outputs.tags }}
+
+      - name: Login to Docker Hub
+        if: env.DOCKER_USERNAME != ''
+        uses: redhat-actions/podman-login@main
+        with:
+          registry: docker.io
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Push to Docker Hub
+        if: env.DOCKER_USERNAME != ''
+        uses: redhat-actions/push-to-registry@main
+        with:
+          registry: docker.io
+          image: pratyay360/${{ matrix.image_name }}
+          tags: ${{ steps.build.outputs.tags }}
+
+      - name: Generate provenance
+        uses: actions/attest-build-provenance@main
+        with:
+          subject-name: ghcr.io/pratyay360/${{ matrix.image_name }}
+          subject-digest: ${{ steps.ghcr.outputs.digest }}
+          push-to-registry: true

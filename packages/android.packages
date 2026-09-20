@@ -1,0 +1,48 @@
+# Base development tools & AUR helper
+base-devel
+git
+curl
+wget
+unzip
+zip
+tar
+which
+pkgconf
+paru
+
+# Native compilation & Linux desktop support for Flutter
+cmake
+ninja
+clang
+gtk3
+
+# Java JDK
+jdk17-openjdk
+
+# Android platform tools & device debugging
+android-tools
+android-udev
+usbutils
+
+# Hardware acceleration, OpenGL, Vulkan, and GUI runtime
+mesa
+vulkan-icd-loader
+vulkan-intel
+vulkan-radeon
+libglvnd
+libbsd
+libxkbcommon
+libxkbfile
+alsa-lib
+libpulse
+nss
+nss-mdns
+xdg-utils
+bash-completion
+
+# Android Studio, Flutter, and Android SDK (from Chaotic-AUR)
+android-sdk-cmdline-tools-latest
+android-sdk-platform-tools
+android-sdk-build-tools
+android-studio
+flutter-bin

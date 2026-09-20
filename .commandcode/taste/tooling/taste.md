@@ -1,0 +1,5 @@
+- Works on Nix-based toolbox container images (toolbx-nix) using Containerfile + `nix profile install --impure --priority 5` pattern for extra-packages list. Confidence: 0.85
+- When resolving Nix package collisions at equal priorities, prefers dropping the redundant/non-essential package (e.g. drop `man-pages` when `shadow` ships its own) over using priority overrides to keep both. Confidence: 0.2
+- For package selection in container images, prioritizes functional/core packages (user management, shell tools) over documentation-completeness packages. Confidence: 0.7
+- In Nix-based container images, references package files (shadow's `login.defs`, `pam.d`, sudo's `sudoers`) via dynamic lookup (`nix profile list`, `nix path-info`) rather than hardcoded `/nix/store/<hash>-<pkg>-<ver>` paths that break across nixpkgs updates. Confidence: 0.8
+- Distinguishes build-time concerns (Containerfile: groups, /etc files, symlinks) from runtime concerns handled by the host tooling (e.g. toolbox CLI creating the host-matching user at `toolbox enter` time) — does not try to bake dynamic host state into the image at build time. Confidence: 0.8
