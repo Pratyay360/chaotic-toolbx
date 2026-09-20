@@ -1,81 +1,60 @@
-# Toolbx Development Containers (Arch Linux + Chaotic-AUR)
+<p align="center">
+  <img alt="Toolbx Development Containers" src="https://shieldcn.dev/header/surface.svg?title=Toolbx+Development+Containers&amp;subtitle=Android+and+chaotic-aur+Toolbx+images&amp;mode=dark" />
+</p>
 
-Pre-configured, battle-tested [Toolbx](https://containertoolbx.org/) / Distrobox container images based on Arch Linux with [Chaotic-AUR](https://aur.chaotic.cx/) pre-configured for automated, fast binary package management.
+![badge group](https://shieldcn.dev/group/github/stars/Pratyay360/chaotic-toolbx+github/forks/Pratyay360/chaotic-toolbx.svg?variant=secondary)
 
----
+<p align="center">
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/github/stars/Pratyay360/chaotic-toolbx.svg?variant=secondary" /><img alt="GitHub Stars" src="https://shieldcn.dev/github/stars/Pratyay360/chaotic-toolbx.svg?variant=secondary&amp;mode=light" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/github/forks/Pratyay360/chaotic-toolbx.svg?variant=secondary" /><img alt="GitHub Forks" src="https://shieldcn.dev/github/forks/Pratyay360/chaotic-toolbx.svg?variant=secondary&amp;mode=light" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/github/watchers/Pratyay360/chaotic-toolbx.svg?variant=secondary" /><img alt="Watchers" src="https://shieldcn.dev/github/watchers/Pratyay360/chaotic-toolbx.svg?variant=secondary&amp;mode=light" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/github/branches/Pratyay360/chaotic-toolbx.svg?variant=ghost" /><img alt="Branches" src="https://shieldcn.dev/github/branches/Pratyay360/chaotic-toolbx.svg?variant=ghost&amp;mode=light" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/github/contributors/Pratyay360/chaotic-toolbx.svg?theme=emerald" /><img alt="Contributors" src="https://shieldcn.dev/github/contributors/Pratyay360/chaotic-toolbx.svg?theme=emerald&amp;mode=light" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/github/last-commit/Pratyay360/chaotic-toolbx.svg?variant=secondary" /><img alt="Last commit" src="https://shieldcn.dev/github/last-commit/Pratyay360/chaotic-toolbx.svg?variant=secondary&amp;mode=light" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/github/commits/Pratyay360/chaotic-toolbx.svg?variant=secondary" /><img alt="Commits" src="https://shieldcn.dev/github/commits/Pratyay360/chaotic-toolbx.svg?variant=secondary&amp;mode=light" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/github/open-issues/Pratyay360/chaotic-toolbx.svg?variant=secondary" /><img alt="Open issues" src="https://shieldcn.dev/github/open-issues/Pratyay360/chaotic-toolbx.svg?variant=secondary&amp;mode=light" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/github/closed-issues/Pratyay360/chaotic-toolbx.svg?variant=ghost" /><img alt="Closed issues" src="https://shieldcn.dev/github/closed-issues/Pratyay360/chaotic-toolbx.svg?variant=ghost&amp;mode=light" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/github/open-prs/Pratyay360/chaotic-toolbx.svg?variant=secondary" /><img alt="Open PRs" src="https://shieldcn.dev/github/open-prs/Pratyay360/chaotic-toolbx.svg?variant=secondary&amp;mode=light" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/github/closed-prs/Pratyay360/chaotic-toolbx.svg?variant=ghost" /><img alt="Closed PRs" src="https://shieldcn.dev/github/closed-prs/Pratyay360/chaotic-toolbx.svg?variant=ghost&amp;mode=light" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/github/merged-prs/Pratyay360/chaotic-toolbx.svg?variant=ghost" /><img alt="Merged PRs" src="https://shieldcn.dev/github/merged-prs/Pratyay360/chaotic-toolbx.svg?variant=ghost&amp;mode=light" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/github/release/Pratyay360/chaotic-toolbx.svg" /><img alt="Release" src="https://shieldcn.dev/github/release/Pratyay360/chaotic-toolbx.svg?mode=light" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/github/ci/Pratyay360/chaotic-toolbx.svg?variant=secondary" /><img alt="CI" src="https://shieldcn.dev/github/ci/Pratyay360/chaotic-toolbx.svg?variant=secondary&amp;mode=light" /></picture>
+  <picture><source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/github/license/Pratyay360/chaotic-toolbx.svg?variant=ghost" /><img alt="License" src="https://shieldcn.dev/github/license/Pratyay360/chaotic-toolbx.svg?variant=ghost&amp;mode=light" /></picture>
+</p>
 
-## Available Images
+# Toolbx Development Containers
 
-| Image | Tag | Description | Containerfile |
-| :--- | :--- | :--- | :--- |
-| **Android & Flutter Stack** | `latest`, `android` | Full Android development environment: Android Studio, Flutter SDK, Android SDK, OpenJDK 17, and build tooling. | [`Containerfile`](./Containerfile) |
-| **Chaotic-AUR Base** | `chaotic` | Clean Arch Linux toolbx image with Chaotic-AUR enabled and `paru` AUR helper pre-installed. | [`Containerfile.chaotic`](./Containerfile.chaotic) |
+Two Toolbx images are built automatically on every push via GitHub Actions and published to multiple registries.
 
-Images are published to:
-- `ghcr.io/pratyay360/toolbx-nix:latest` (Android & Flutter stack)
-- `ghcr.io/pratyay360/toolbx-nix:chaotic` (Vanilla Chaotic-AUR + paru)
+- `android-toolbox` — everything needed for Android app development.
+- `chaotic-toolbox` — chaotic-aur based vanilla Toolbx image.
 
----
+## Images
 
-## 🚀 Quickstart
+| Image | Purpose | Base |
+| --- | --- | --- |
+| `android-toolbox` | Everything needed for Android app development | Arch Linux + Android Studio JDK + Flutter SDK |
+| `chaotic-toolbox` | Vanilla arch linux Toolbx image with preinstalled chaotic-aur | Arch Linux |
 
-### 1. Create and Enter the Android & Flutter Toolbx
+## Registries
 
-```bash
-# Create the toolbox container
-toolbox create -i ghcr.io/pratyay360/toolbx-nix:latest -c android-dev
+| Image | GHCR | Quay.io | Docker Hub |
+| --- | --- | --- | --- |
+| `android-toolbox` | `ghcr.io/pratyay360/android-toolbox` | `quay.io/pratyay360/android-toolbox` | `docker.io/pratyay360/android-toolbox` |
+| `chaotic-toolbox` | `ghcr.io/pratyay360/chaotic-toolbox` | `quay.io/pratyay360/chaotic-toolbox` | `docker.io/pratyay360/chaotic-toolbox` |
 
-# Enter the container
-toolbox enter android-dev
-```
-
-### 2. Verify Development Stack
-
-Inside the container:
-
-```bash
-# Check Flutter setup
-flutter doctor
-
-# Check Android SDK command-line tools
-sdkmanager --version
-adb --version
-
-# Check Java runtime
-java -version
-
-# Launch Android Studio
-studio
-# or: android-studio
-```
-
----
-
-## 📦 What's Included in the Android Stack
-
-- **Android Studio**: Stable release pre-installed at `/opt/android-studio` with launcher symlinked to `studio` and `android-studio`.
-- **Flutter SDK**: Pre-cached Flutter SDK with Dart, Android, Linux, and Web target support (`/opt/flutter`). Pre-configured with Android SDK and Android Studio paths.
-- **Android SDK & Command-line Tools**:
-  - `cmdline-tools` (latest)
-  - `platform-tools` (`adb`, `fastboot`)
-  - `build-tools`
-  - Pre-accepted Android SDK licenses
-- **Java**: OpenJDK 17 (`JAVA_HOME=/usr/lib/jvm/java-17-openjdk`)
-- **AUR Helper**: `paru` from Chaotic-AUR for fast installation of any additional Arch/AUR packages.
-- **Desktop & Native Compilation**: `clang`, `cmake`, `ninja`, `pkgconf`, `gtk3`.
-- **Hardware Acceleration & GUI**: `mesa`, `vulkan-icd-loader`, `vulkan-intel`, `vulkan-radeon`, `libglvnd`, `alsa-lib`, `libpulse`, `nss`.
-- **Device Support**: `android-udev` rules and `usbutils` for USB phone debugging.
-
----
-
-## 🛠 Local Build
-
-To build the images locally with Podman or Buildah:
+## Usage
 
 ```bash
-# Build Android & Flutter container (or use default Containerfile)
-podman build -t android-toolbox -f ContainerFiles/android .
+# Android development image
+toolbox create --image ghcr.io/pratyay360/android-toolbox:latest android-toolbox
+toolbox enter android-toolbox
 
-# Build vanilla Chaotic-AUR + paru container
-podman build -t chaotic-toolbox -f ContainerFiles/chaotic .
+# Chaotic-aur vanilla image
+toolbox create --image ghcr.io/pratyay360/chaotic-toolbox:latest chaotic-toolbox
+toolbox enter chaotic-toolbox
 ```
+
+<p align="center">
+  <a href="https://github.com/pratyay360/chaotic-toolbx/graphs/contributors"><img alt="contributors" src="https://shieldcn.dev/contributors/pratyay360/chaotic-toolbx.svg?mode=dark" /></a>
+</p>

@@ -10,7 +10,6 @@ permissions:
   id-token: write
   attestations: write
 
-# Secrets must be at workflow level for `if: env.X != ''` to work
 env:
   QUAY_USERNAME: ${{ secrets.QUAY_USERNAME }}
   QUAY_PASSWORD: ${{ secrets.QUAY_PASSWORD }}
