@@ -11,7 +11,13 @@ sed -i 's|^Server = https://cdn-mirror.chaotic.cx|# Server = https://cdn-mirror.
 printf '\n[chaotic-aur]\nInclude = /etc/pacman.d/chaotic-mirrorlist\n' >> /etc/pacman.conf
 
 echo "==> Installing packages from chaotic.packages..."
-grep -v '^#' /packages/chaotic.packages | xargs pacman -Syu --needed --noconfirm
+grep -v '^#' /packages/chaotic.packages > /tmp/chaotic.pkglist
+if [ ! -s /tmp/chaotic.pkglist ]; then
+    echo "chaotic.packages is missing or empty" >&2
+    exit 1
+fi
+xargs pacman -Syu --needed --noconfirm < /tmp/chaotic.pkglist
+rm -f /tmp/chaotic.pkglist
 rm -rf /var/cache/pacman/pkg/*
 
 echo "==> Configuring toolbx permissions..."

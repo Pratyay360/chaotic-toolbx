@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="Toolbx Development Containers" src="https://shieldcn.dev/header/surface.svg?title=Toolbx+Development+Containers&amp;subtitle=Android+and+chaotic-aur+Toolbx+images&amp;mode=dark" />
+  <img alt="Toolbx Development Containers" src="https://shieldcn.dev/header/surface.svg?title=Toolbx+Development+Containers&amp;subtitle=Chaotic-AUR+and+Homebrew+Toolbx+images&amp;mode=dark" />
 </p>
 
 ![badge group](https://shieldcn.dev/group/github/stars/Pratyay360/chaotic-toolbx+github/forks/Pratyay360/chaotic-toolbx.svg?variant=secondary)
@@ -26,33 +26,33 @@
 
 Two Toolbx images are built automatically on every push via GitHub Actions and published to multiple registries.
 
-- `android-toolbox` — everything needed for Android app development.
-- `chaotic-toolbox` — chaotic-aur based vanilla Toolbx image.
+- `chaotic-toolbox` — Arch Linux Toolbx image with the Chaotic-AUR repo and `paru` preinstalled.
+- `brew-toolbox` — AlmaLinux Toolbx image with Homebrew installed.
 
 ## Images
 
 | Image | Purpose | Base |
 | --- | --- | --- |
-| `android-toolbox` | Everything needed for Android app development | Arch Linux + Android Studio JDK + Flutter SDK |
-| `chaotic-toolbox` | Vanilla arch linux Toolbx image with preinstalled chaotic-aur | Arch Linux |
+| `chaotic-toolbox` | Arch Linux with Chaotic-AUR repo and `paru` AUR helper | Arch Linux |
+| `brew-toolbox` | Vanilla AlmaLinux with Homebrew | AlmaLinux |
 
 ## Registries
 
 | Image | GHCR | Quay.io | Docker Hub |
 | --- | --- | --- | --- |
-| `android-toolbox` | `ghcr.io/pratyay360/android-toolbox` | `quay.io/pratyay360/android-toolbox` | `docker.io/pratyay360/android-toolbox` |
 | `chaotic-toolbox` | `ghcr.io/pratyay360/chaotic-toolbox` | `quay.io/pratyay360/chaotic-toolbox` | `docker.io/pratyay360/chaotic-toolbox` |
+| `brew-toolbox` | `ghcr.io/pratyay360/brew-toolbox` | `quay.io/pratyay360/brew-toolbox` | `docker.io/pratyay360/brew-toolbox` |
 
 ## Usage
 
 ```bash
-# Android development image
-toolbox create --image ghcr.io/pratyay360/android-toolbox:latest android-toolbox
-toolbox enter android-toolbox
-
-# Chaotic-aur vanilla image
+# Chaotic-AUR image
 toolbox create --image ghcr.io/pratyay360/chaotic-toolbox:latest chaotic-toolbox
 toolbox enter chaotic-toolbox
+
+# Homebrew image
+toolbox create --image ghcr.io/pratyay360/brew-toolbox:latest brew-toolbox
+toolbox enter brew-toolbox
 ```
 
 <p align="center">

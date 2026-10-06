@@ -1,0 +1,16 @@
+FROM quay.io/toolbx-images/almalinux-toolbox:latest
+
+LABEL com.github.containers.toolbox="true" \
+    name="brew-development-env" \
+    version="latest" \
+    usage="This image is meant to be used with the toolbox or distrobox command" \
+    summary="Homebrew development environment" \
+    maintainer="Pratyay Mustafi <pratyaymustafi@outlook.com>"
+
+# Copy setup scripts and package lists
+COPY scripts/ /scripts/
+COPY packages/ /packages/
+
+# Execute setup script and clean build artifacts
+RUN chmod +x /scripts/*.sh && /scripts/brew.sh
+RUN rm -rf /scripts /packages
