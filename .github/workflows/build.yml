@@ -50,7 +50,7 @@ jobs:
       - name: Build image
         uses: redhat-actions/buildah-build@v2
         id: build
-:        with:
+        with:
           image: pratyay360/${{ matrix.image_name }}
           tags: ${{ matrix.tags }}
           containerfiles: ./ContainerFiles/${{ matrix.containerfile }}
@@ -109,4 +109,3 @@ jobs:
           subject-name: ghcr.io/pratyay360/${{ matrix.image_name }}
           subject-digest: ${{ steps.ghcr.outputs.digest }}
           push-to-registry: true
-
