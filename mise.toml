@@ -1,0 +1,3 @@
+[tools]
+action-validator = "latest"
+actionlint = "latest"
