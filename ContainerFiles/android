@@ -1,0 +1,14 @@
+FROM quay.io/pratyay360/chaotic-toolbox:latest
+
+LABEL com.github.containers.toolbox="true" \
+    name="android-toolbox" \
+    version="latest" \
+    usage="This image is meant to be used with the toolbox or distrobox command" \
+    summary="Android development toolbox with flutter" \
+    maintainer="Pratyay Mustafi <pratyaymustafi@outlook.com>"
+
+# Copy setup scripts and package lists
+COPY scripts/ /scripts/
+COPY packages/ /packages/
+RUN chmod +x /scripts/*.sh && /scripts/android.sh
+RUN rm -rf /scripts /packages

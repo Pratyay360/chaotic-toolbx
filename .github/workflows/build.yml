@@ -1,0 +1,121 @@
+name: Build and Push Containers
+
+on:
+  push:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  packages: write
+  id-token: write
+  attestations: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        containerfile: [chaotic, brew, android]
+        include:
+          - containerfile: brew
+            image_name: brew-toolbox
+            tags: |
+              latest
+              ${{ github.sha }}
+              ${{ github.ref_name }}
+          - containerfile: chaotic
+            image_name: chaotic-toolbox
+            tags: |
+              latest
+              ${{ github.sha }}
+              ${{ github.ref_name }}
+          - containerfile: android
+            image_name: android-toolbox
+            tags: |
+              latest
+              ${{ github.sha }}
+              ${{ github.ref_name }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+
+      - name: Build image
+        uses: redhat-actions/buildah-build@main
+        id: build
+        with:
+          image: pratyay360/${{ matrix.image_name }}
+          tags: ${{ matrix.tags }}
+          containerfiles: ./ContainerFiles/${{ matrix.containerfile }}
+          context: .
+
+      - name: Login to GHCR
+        uses: redhat-actions/podman-login@main
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+
+      - name: Push to GHCR
+        id: ghcr
+        uses: redhat-actions/push-to-registry@main
+        with:
+          registry: ghcr.io
+          image: pratyay360/${{ matrix.image_name }}
+          tags: ${{ steps.build.outputs.tags }}
+
+      - name: Login to Quay
+        uses: redhat-actions/podman-login@main
+        with:
+          registry: quay.io
+          username: ${{ secrets.QUAY_USERNAME }}
+          password: ${{ secrets.QUAY_PASSWORD }}
+
+      - name: Push to Quay
+        id: quay
+        uses: redhat-actions/push-to-registry@main
+        with:
+          registry: quay.io
+          image: pratyay360/${{ matrix.image_name }}
+          tags: ${{ steps.build.outputs.tags }}
+
+      - name: Login to Docker Hub
+        uses: redhat-actions/podman-login@main
+        with:
+          registry: docker.io
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Push to Docker Hub
+        id: docker
+        uses: redhat-actions/push-to-registry@main
+        with:
+          registry: docker.io
+          image: pratyay360/${{ matrix.image_name }}
+          tags: ${{ steps.build.outputs.tags }}
+
+      - name: Generate provenance
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-name: ghcr.io/pratyay360/${{ matrix.image_name }}
+          subject-digest: ${{ steps.ghcr.outputs.digest }}
+          push-to-registry: true
+
+      - name: Generate provenance
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-name: quay.io/pratyay360/${{ matrix.image_name }}
+          subject-digest: ${{ steps.quay.outputs.digest }}
+          push-to-registry: true
+
+      # - name: Generate provenance
+      #   uses: actions/attest-build-provenance@v2
+      #   with:
+      #     subject-name: docker.io/pratyay360/${{ matrix.image_name }}
+      #     subject-digest: ${{ steps.docker.outputs.digest }}
+      #     push-to-registry: true

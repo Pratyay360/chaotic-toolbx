@@ -1,0 +1,16 @@
+FROM quay.io/toolbx/arch-toolbox:latest
+
+LABEL com.github.containers.toolbox="true" \
+    name="arch-chaotic-toolbox" \
+    version="latest" \
+    usage="This image is meant to be used with the toolbox or distrobox command" \
+    summary="Arch Linux toolbox container with Chaotic-AUR and paru" \
+    maintainer="Pratyay Mustafi <pratyaymustafi@outlook.com>"
+
+# Copy setup scripts and package lists
+COPY scripts/ /scripts/
+COPY packages/ /packages/
+
+# Execute setup script and clean build artifacts
+RUN chmod +x /scripts/*.sh && /scripts/chaotic.sh
+RUN rm -rf /scripts /packages
