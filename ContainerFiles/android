@@ -10,5 +10,6 @@ LABEL com.github.containers.toolbox="true" \
 # Copy setup scripts and package lists
 COPY scripts/ /scripts/
 COPY packages/ /packages/
+RUN sudo su
 RUN chmod +x /scripts/*.sh && /scripts/android.sh
 RUN rm -rf /scripts /packages
