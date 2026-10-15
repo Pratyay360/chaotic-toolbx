@@ -2,7 +2,7 @@ name: Clean Workflow Runs
 
 on:
   schedule:
-    - cron: "0 0 * * 0"
+    - cron: "0 0 */7 * *"
   workflow_dispatch:
     inputs:
       retain_days:
