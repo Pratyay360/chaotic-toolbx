@@ -1,21 +1,17 @@
-#!/usr/bin/env bash
+#!/usr/bin/sh
 set -euo pipefail
 
+pacman -Syu --noconfirm
+pacman-key --init
+pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
+pacman-key --lsign-key 3056513887B78AEB
 
-pacman -Syyu
-sudo pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
-sudo pacman-key --lsign-key 3056513887B78AEB
-
-sudo pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst'
-sudo pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'
+pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' --noconfirm
+pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst' --noconfirm
 
 echo "[chaotic-aur]
 Include = /etc/pacman.d/chaotic-mirrorlist" >> /etc/pacman.conf
 
-sudo pacman -Syyu
+pacman -Syyu --noconfirm
 
-sudo  pacman -Sy git base-devel paru
-
-
-# echo "%wheel ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/toolbox
-# chmod 0440 /etc/sudoers.d/toolbox
+pacman -Sy git paru gcc --noconfirm

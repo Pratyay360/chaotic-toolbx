@@ -4,12 +4,11 @@ LABEL com.github.containers.toolbox="true" \
     name="arch-chaotic-aur-toolbox" \
     version="latest" \
     usage="This image is meant to be used with the toolbox or distrobox command" \
-    summary="Arch Linux toolbox container with Chaotic-AUR and paru" \
+    summary="Arch Linux toolbox container with Chaotic AUR and paru" \
     maintainer="Pratyay Mustafi <pratyaymustafi@outlook.com>"
 
-# Copy setup scripts and package lists
 COPY scripts/ /scripts/
 COPY packages/ /packages/
-
-RUN chmod +x /scripts/*.sh && /scripts/chaotic.sh
+RUN sudo su
+RUN chmod +x /scripts/chaotic.sh && /scripts/chaotic.sh
 RUN rm -rf /scripts /packages
