@@ -8,26 +8,28 @@ on:
       retain_days:
         description: "Number of days to keep runs (0 to delete all)"
         required: false
-        default: "0"
+        default: "1"
         type: string
       keep_minimum_runs:
         description: "Minimum number of runs to keep per workflow"
         required: false
-        default: "0"
+        default: "2"
         type: string
 
-permissions:
-  actions: write
-  contents: write
+permissions: {}
 
 jobs:
   clean-runs:
+    permissions:
+      actions: write
+      contents: write
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Delete Workflow Runs
-        uses: Mattraks/delete-workflow-runs@v2
+        uses: Mattraks/delete-workflow-runs@b3018382ca039b53d238908238bd35d1fb14f8ee # v2.1.0
         with:
           token: ${{ github.token }}
           repository: ${{ github.repository }}
-          retain_days: ${{ inputs.retain_days || '0' }}
-          keep_minimum_runs: ${{ inputs.keep_minimum_runs || '0' }}
+          retain_days: ${{ inputs.retain_days || '1' }}
+          keep_minimum_runs: ${{ inputs.keep_minimum_runs || '2' }}

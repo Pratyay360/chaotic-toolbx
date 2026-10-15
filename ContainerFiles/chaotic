@@ -1,7 +1,7 @@
 FROM quay.io/toolbx/arch-toolbox:latest
 
 LABEL com.github.containers.toolbox="true" \
-    name="arch-chaotic-aur-toolbox" \
+    name="chaotic-toolbox" \
     version="latest" \
     usage="This image is meant to be used with the toolbox or distrobox command" \
     summary="Arch Linux toolbox container with Chaotic AUR and paru" \
@@ -9,6 +9,5 @@ LABEL com.github.containers.toolbox="true" \
 
 COPY scripts/ /scripts/
 COPY packages/ /packages/
-RUN sudo su
 RUN chmod +x /scripts/chaotic.sh && /scripts/chaotic.sh
 RUN rm -rf /scripts /packages

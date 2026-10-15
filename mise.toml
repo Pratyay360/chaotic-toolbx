@@ -2,4 +2,5 @@
 action-validator = "latest"
 actionlint = "latest"
 cosign = "latest"
+jactionlint = { version = "latest", workflow = "release.yaml" }
 shellcheck = "latest"

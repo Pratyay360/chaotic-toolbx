@@ -1,7 +1,7 @@
 FROM quay.io/toolbx-images/almalinux-toolbox:latest
 
 LABEL com.github.containers.toolbox="true" \
-    name="brew-development-env" \
+    name="brew-toolbox" \
     version="latest" \
     usage="This image is meant to be used with the toolbox or distrobox command" \
     summary="Homebrew development environment" \

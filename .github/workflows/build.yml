@@ -3,56 +3,51 @@ name: Build and Push Containers
 on:
   push:
   workflow_dispatch:
-    schedule:
-      - cron: '0 0 */2 * *'
+  schedule:
+    - cron: "0 0 */2 * *"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-permissions:
-  contents: read
-  packages: write
-  id-token: write
-  attestations: write
+permissions: {}
 
 jobs:
   build:
+    permissions:
+      attestations: write
+      contents: read
+      id-token: write
+      packages: write
     runs-on: ubuntu-latest
+    timeout-minutes: 120
     strategy:
       fail-fast: false
       matrix:
-        containerfile: [chaotic, brew, android]
         include:
           - containerfile: brew
             image_name: brew-toolbox
-            tags: |
-              latest
-              ${{ github.sha }}
-              ${{ github.ref_name }}
           - containerfile: chaotic
             image_name: chaotic-toolbox
-            tags: |
-              latest
-              ${{ github.sha }}
-              ${{ github.ref_name }}
           - containerfile: android
             image_name: android-toolbox
-            tags: |
-              latest
-              ${{ github.sha }}
-              ${{ github.ref_name }}
+          - containerfile: waydroid
+            image_name: waydroid-toolbox
 
     steps:
       - name: Checkout
         uses: actions/checkout@main
+        with:
+          persist-credentials: false
 
       - name: Build image
         uses: redhat-actions/buildah-build@main
         id: build
         with:
           image: pratyay360/${{ matrix.image_name }}
-          tags: ${{ matrix.tags }}
+          tags: |
+            latest
+            ${{ github.sha }}
           containerfiles: ./ContainerFiles/${{ matrix.containerfile }}
           context: .
 
@@ -71,6 +66,14 @@ jobs:
           image: pratyay360/${{ matrix.image_name }}
           tags: ${{ steps.build.outputs.tags }}
 
+      - name: Attest GHCR image
+        uses: actions/attest@main
+        with:
+          subject-name: ghcr.io/pratyay360/${{ matrix.image_name }}
+          subject-digest: ${{ steps.ghcr.outputs.digest }}
+          push-to-registry: true
+          create-storage-record: false
+
       - name: Login to Quay
         uses: redhat-actions/podman-login@main
         with:
@@ -86,6 +89,14 @@ jobs:
           image: pratyay360/${{ matrix.image_name }}
           tags: ${{ steps.build.outputs.tags }}
 
+      - name: Attest Quay image
+        uses: actions/attest@main
+        with:
+          subject-name: quay.io/pratyay360/${{ matrix.image_name }}
+          subject-digest: ${{ steps.quay.outputs.digest }}
+          push-to-registry: true
+          create-storage-record: false
+
       - name: Login to Docker Hub
         uses: redhat-actions/podman-login@main
         with:
@@ -94,30 +105,8 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Push to Docker Hub
-        id: docker
         uses: redhat-actions/push-to-registry@main
         with:
           registry: docker.io
           image: pratyay360/${{ matrix.image_name }}
           tags: ${{ steps.build.outputs.tags }}
-
-      - name: Generate provenance
-        uses: actions/attest-build-provenance@v2
-        with:
-          subject-name: ghcr.io/pratyay360/${{ matrix.image_name }}
-          subject-digest: ${{ steps.ghcr.outputs.digest }}
-          push-to-registry: true
-
-      - name: Generate provenance
-        uses: actions/attest-build-provenance@v2
-        with:
-          subject-name: quay.io/pratyay360/${{ matrix.image_name }}
-          subject-digest: ${{ steps.quay.outputs.digest }}
-          push-to-registry: true
-
-      # - name: Generate provenance
-      #   uses: actions/attest-build-provenance@v2
-      #   with:
-      #     subject-name: docker.io/pratyay360/${{ matrix.image_name }}
-      #     subject-digest: ${{ steps.docker.outputs.digest }}
-      #     push-to-registry: true

@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/usr/bin/env bash
 set -euo pipefail
 
 pacman -Syu --noconfirm
@@ -14,4 +14,5 @@ Include = /etc/pacman.d/chaotic-mirrorlist" >> /etc/pacman.conf
 
 pacman -Syyu --noconfirm
 
-pacman -Sy git paru gcc --noconfirm
+pacman -S --needed --noconfirm git paru gcc
+find /var/cache/pacman/pkg -mindepth 1 -delete
