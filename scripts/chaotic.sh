@@ -17,9 +17,9 @@ if [ ! -s /tmp/chaotic.pkglist ]; then
     exit 1
 fi
 xargs pacman -Syu --needed --noconfirm < /tmp/chaotic.pkglist
-rm -f /tmp/chaotic.pkglist
-rm -rf /var/cache/pacman/pkg/*
+# rm -f /tmp/chaotic.pkglist
+# rm -rf /var/cache/pacman/pkg/*
 
 echo "==> Configuring toolbx permissions..."
-echo "%wheel ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/toolbox
-chmod 0440 /etc/sudoers.d/toolbox
+# echo "%wheel ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/toolbox
+# chmod 0440 /etc/sudoers.d/toolbox
