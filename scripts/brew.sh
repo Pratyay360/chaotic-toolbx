@@ -20,6 +20,6 @@ mkdir -p /home/linuxbrew/.linuxbrew
 chown -R 1000:1000 /home/linuxbrew
 
 echo "==> Installing Homebrew under the brew user..."
-su - brew -c 'NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' > /etc/profile.d/brew.sh
+echo "eval \"$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)\"" > /etc/profile.d/brew.sh

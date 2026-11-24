@@ -7,7 +7,6 @@ LABEL com.github.containers.toolbox="true" \
     summary="Android development toolbox with flutter" \
     maintainer="Pratyay Mustafi <pratyaymustafi@outlook.com>"
 
-# Copy setup scripts and package lists
 COPY scripts/ /scripts/
 COPY packages/ /packages/
 RUN chmod +x /scripts/*.sh && /scripts/android.sh
